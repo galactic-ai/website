@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title> galactic.ai – Machine Learning, Cosmology and Inference</title>
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #0d0d1a;
+    --text: #dcdce8;
+    --muted: #8a8aa6;
+    --link: #a493ff;
+    --link-visited: #c4a3f0;
+    --rule: #2b2b4a;
+    --photo-bg: #1b1b33;
+    --photo-fg: #6c6c8f;
+    color-scheme: dark;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); background: var(--bg); }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 64rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 4rem;
+  }
+  a { color: var(--link); }
+  a:visited { color: var(--link-visited); }
+  a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+  header h1 { font-size: 1.9rem; margin: 0 0 0.2rem; font-weight: normal; }
+  header p { margin: 0; color: var(--muted); }
+  nav { margin: 1.2rem 0 0; padding: 0.5rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  nav a { margin-right: 1.2rem; }
+
+  h2 { font-size: 1.35rem; font-weight: normal; margin: 2.5rem 0 0.8rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.2rem; }
+  h3 { font-size: 1.05rem; margin: 1.6rem 0 0.4rem; }
+  p { margin: 0 0 0.9rem; }
+
+  .person { display: flex; gap: 1rem; margin: 0 0 1.4rem; }
+  .photo {
+    flex: 0 0 96px; width: 96px; height: 96px;
+    background: var(--photo-bg); color: var(--photo-fg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; overflow: hidden;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .person .name { font-weight: bold; }
+  .person .role { color: var(--muted); }
+  .person p { margin: 0.2rem 0 0; }
+
+  .project { margin: 0 0 1.4rem; }
+  .project h3 { margin-top: 0; }
+  .project .meta { color: var(--muted); font-size: 0.95rem; margin: 0 0 0.3rem; }
+
+  .gh svg { width: 1em; height: 1em; fill: currentColor; vertical-align: -0.12em; margin-right: 0.35em; }
+  .pubs { padding-left: 1.2rem; margin: 0; }
+  .pubs li { margin: 0 0 0.9rem; }
+  .pubs .authors { color: var(--muted); }
+
+  footer { margin-top: 3rem; padding-top: 0.8rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }
+
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .photo { flex-basis: 72px; width: 72px; height: 72px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>galactic.ai</h1>
+  <p>Department, University Name</p>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#people">People</a>
+    <a href="#projects">Projects</a>
+    <a href="#publications">Publications</a>
+    <a href="#contact">Contact</a>
+    <a class="gh" href="https://github.com/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+  </nav>
+</header>
+
+<main>
+
+<section id="about">
+  <h2>About</h2>
+  <p>We are a research group working on machine learning, cosmology and statistical inference. Replace this paragraph with a short description of what the group does and the questions it cares about.</p>
+  <p>Add a second paragraph for methods, software, or collaborations. Mention if you are recruiting students or postdocs, and link to the <a href="#contact">contact</a> section.</p>
+</section>
+
+<section id="people">
+  <h2>People</h2>
+
+  <h3>Faculty</h3>
+  <div class="person">
+    <div class="photo">Photo</div>
+    <div>
+      <div class="name"><a href="#">Name Surname</a></div>
+      <div class="role">Principal Investigator</div>
+      <p>One-line research summary.</p>
+    </div>
+  </div>
+
+  <h3>Postdocs</h3>
+  <div class="person">
+    <div class="photo">Photo</div>
+    <div>
+      <div class="name"><a href="#">Name Surname</a></div>
+      <div class="role">Postdoctoral Researcher</div>
+      <p>One-line research summary.</p>
+    </div>
+  </div>
+  <div class="person">
+    <div class="photo">Photo</div>
+    <div>
+      <div class="name"><a href="#">Name Surname</a></div>
+      <div class="role">Postdoctoral Researcher</div>
+      <p>One-line research summary.</p>
+    </div>
+  </div>
+
+  <h3>PhD students</h3>
+  <div class="person">
+    <div class="photo">Photo</div>
+    <div>
+      <div class="name"><a href="#">Name Surname</a></div>
+      <div class="role">PhD student</div>
+      <p>One-line research summary.</p>
+    </div>
+  </div>
+  <div class="person">
+    <div class="photo">Photo</div>
+    <div>
+      <div class="name"><a href="#">Name Surname</a></div>
+      <div class="role">PhD student</div>
+      <p>One-line research summary.</p>
+    </div>
+  </div>
+
+  <h3>Alumni</h3>
+  <p>Name Surname (degree, year, now at Institution) · Name Surname (degree, year, now at Institution)</p>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+
+  <div class="project">
+    <h3>Project Title</h3>
+    <p class="meta">People: Name Surname, Name Surname</p>
+    <p>Short description of the project, its goal and its main result.</p>
+    <p><a href="#">Paper</a>, <a href="#">code</a></p>
+  </div>
+
+  <div class="project">
+    <h3>Project Title</h3>
+    <p class="meta">People: Name Surname, Name Surname</p>
+    <p>Short description of the project, its goal and its main result.</p>
+    <p><a href="#">Paper</a>, <a href="#">code</a></p>
+  </div>
+
+  <div class="project">
+    <h3>Project Title</h3>
+    <p class="meta">People: Name Surname</p>
+    <p>Short description of the project, its goal and its main result.</p>
+    <p><a href="#">Paper</a></p>
+  </div>
+</section>
+
+<section id="publications">
+  <h2>Publications</h2>
+
+  <h3>2026</h3>
+  <ul class="pubs">
+    <li>
+      Paper Title Goes Here<br>
+      <span class="authors">Name Surname, Name Surname, Name Surname</span><br>
+      Journal Name, Volume, Pages (2026) · <a href="#">arXiv</a> · <a href="#">code</a>
+    </li>
+    <li>
+      Paper Title Goes Here<br>
+      <span class="authors">Name Surname, Name Surname</span><br>
+      Journal Name, Volume, Pages (2026) · <a href="#">arXiv</a>
+    </li>
+  </ul>
+
+  <h3>2025</h3>
+  <ul class="pubs">
+    <li>
+      Paper Title Goes Here<br>
+      <span class="authors">Name Surname, Name Surname, Name Surname</span><br>
+      Journal Name, Volume, Pages (2025) · <a href="#">arXiv</a> · <a href="#">code</a>
+    </li>
+    <li>
+      Paper Title Goes Here<br>
+      <span class="authors">Name Surname, Name Surname</span><br>
+      Journal Name, Volume, Pages (2025) · <a href="#">arXiv</a>
+    </li>
+  </ul>
+
+  <p>Full list on <a href="#">ADS</a> or <a href="#">Google Scholar</a>.</p>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>
+    galactic.ai<br>
+    Department<br>
+    University Name<br>
+    Street Address, City, Postcode, Country
+  </p>
+  <p>Email: <a href="mailto:group@example.edu">group@example.edu</a></p>
+  <p class="gh"><a href="https://github.com/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>github.com/group-name</a></p>
+  <p>Note for prospective students and collaborators.</p>
+</section>
+
+</main>
+
+<footer>
+  Last updated Month Year.
+</footer>
+
+</body>
+</html>
