@@ -3,95 +3,179 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title> galactic.ai – Machine Learning, Cosmology and Inference</title>
+<title>galactic.ai – Machine Learning, Cosmology and Inference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
-    --bg: #0d0d1a;
-    --text: #dcdce8;
-    --muted: #8a8aa6;
-    --link: #a493ff;
-    --link-visited: #c4a3f0;
-    --rule: #2b2b4a;
-    --photo-bg: #1b1b33;
-    --photo-fg: #6c6c8f;
+    --side: #0f1530;
+    --bg: #0c1020;
+    --text: #e4e6f2;
+    --muted: #8d93b2;
+    --link: #8b9bff;
+    --rule: #1f2850;
+    --photo-bg: #182148;
+    --photo-fg: #8d93b2;
+    --chip-bg: #141b3c;
+    --chip-border: #2a3566;
     color-scheme: dark;
   }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); background: var(--bg); }
+  *, *::before, *::after { box-sizing: inherit; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; background: var(--bg); }
   body {
+    margin: 0;
     background: var(--bg);
     color: var(--text);
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 17px;
-    line-height: 1.6;
-    max-width: 64rem;
-    margin: 0 auto;
-    padding: 1.5rem 1.25rem 4rem;
+    line-height: 1.65;
   }
   a { color: var(--link); }
-  a:visited { color: var(--link-visited); }
-  a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 2px; }
 
-  header h1 { font-size: 1.9rem; margin: 0 0 0.2rem; font-weight: normal; }
-  header p { margin: 0; color: var(--muted); }
-  nav { margin: 1.2rem 0 0; padding: 0.5rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-  nav a { margin-right: 1.2rem; }
+  /* Layout: fixed sidebar + scrolling content */
+  .layout { display: grid; grid-template-columns: 17rem minmax(0, 1fr); min-height: 100vh; }
+  .sidebar {
+    background: var(--side);
+    border-right: 1px solid var(--rule);
+    padding: 2.8rem 1.8rem;
+    position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto;
+  }
+  .sidebar h1 { font-size: 1.9rem; line-height: 1.15; font-weight: 700; margin: 0 0 0.6rem; letter-spacing: -0.01em; }
+  .sidebar .dept { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.5; }
+  .sidebar nav { margin-top: 2.6rem; display: flex; flex-direction: column; gap: 1.1rem; }
+  .sidebar nav a { text-decoration: none; font-size: 1.05rem; }
+  .sidebar nav a:hover { text-decoration: underline; }
+  .gh svg { width: 1.1em; height: 1.1em; fill: currentColor; vertical-align: -0.17em; margin-right: 0.4em; }
 
-  h2 { font-size: 1.35rem; font-weight: normal; margin: 2.5rem 0 0.8rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.2rem; }
-  h3 { font-size: 1.05rem; margin: 1.6rem 0 0.4rem; }
-  p { margin: 0 0 0.9rem; }
+  main { padding: 2.8rem 3rem 5rem; max-width: 62rem; width: 100%; }
 
-  .person { display: flex; gap: 1rem; margin: 0 0 1.4rem; }
+  h2 { font-size: 2rem; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 1.4rem; padding-bottom: 0.9rem; border-bottom: 1px solid var(--rule); }
+  section + section { margin-top: 4rem; }
+  h3 { font-size: 0.9rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 2.4rem 0 1.1rem; }
+  p { margin: 0 0 1rem; max-width: 46rem; }
+
+  /* News */
+  .news { list-style: none; margin: 0; padding: 0; }
+  .news li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 0.4rem 1.5rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+  .news li:first-child { padding-top: 0; }
+  .news time { color: var(--muted); font-size: 0.95rem; padding-top: 0.15rem; font-variant-numeric: tabular-nums; }
+  .news .headline { font-weight: 600; margin: 0 0 0.15rem; max-width: none; }
+  .news .body { margin: 0; color: var(--muted); max-width: 44rem; }
+  .news-more { margin-top: 1rem; font-size: 0.95rem; color: var(--muted); }
+
+  /* People */
+  .person { display: flex; gap: 1.4rem; margin: 0 0 2.2rem; align-items: flex-start; }
   .photo {
-    flex: 0 0 96px; width: 96px; height: 96px;
+    flex: 0 0 96px; width: 96px; height: 96px; border-radius: 50%;
     background: var(--photo-bg); color: var(--photo-fg);
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.9rem; overflow: hidden;
+    font-size: 1.05rem; font-weight: 500; overflow: hidden;
   }
   .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .person .name { font-weight: bold; }
-  .person .role { color: var(--muted); }
-  .person p { margin: 0.2rem 0 0; }
+  .person-body { min-width: 0; }
+  .person .name { font-weight: 700; font-size: 1.1rem; line-height: 1.35; }
+  .person .name a { color: var(--link); }
+  .person .role { color: var(--muted); margin: 0 0 0.6rem; }
+  .interests { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 0.8rem; padding: 0; }
+  .interests li { font-size: 0.85rem; line-height: 1.3; padding: 0.2rem 0.65rem; border: 1px solid var(--chip-border); background: var(--chip-bg); border-radius: 999px; }
+  .person .project-line { margin: 0 0 0.3rem; font-weight: 600; max-width: none; }
+  .person .bio { margin: 0 0 0.7rem; max-width: 42rem; }
+  .person .links { margin: 0; font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; max-width: none; }
 
-  .project { margin: 0 0 1.4rem; }
-  .project h3 { margin-top: 0; }
-  .project .meta { color: var(--muted); font-size: 0.95rem; margin: 0 0 0.3rem; }
+  /* Projects */
+  .project { margin: 0 0 2rem; }
+  .project h4 { font-size: 1.1rem; margin: 0 0 0.2rem; }
+  .project .meta { color: var(--muted); font-size: 0.95rem; margin: 0 0 0.4rem; }
 
-  .gh svg { width: 1em; height: 1em; fill: currentColor; vertical-align: -0.12em; margin-right: 0.35em; }
-  .pubs { padding-left: 1.2rem; margin: 0; }
-  .pubs li { margin: 0 0 0.9rem; }
+  /* Publications */
+  .pubs { padding-left: 1.2rem; margin: 0 0 1rem; max-width: 46rem; }
+  .pubs li { margin: 0 0 1rem; }
   .pubs .authors { color: var(--muted); }
 
-  footer { margin-top: 3rem; padding-top: 0.8rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }
+  .interest-box { border: 1px solid var(--chip-border); background: var(--chip-bg); border-radius: 12px; padding: 1.4rem 1.6rem; max-width: 46rem; }
+  .interest-box p:last-child { margin-bottom: 0; }
+  .interest-box .pi { font-weight: 600; }
 
-  @media (max-width: 480px) {
+  footer { margin-top: 4rem; padding-top: 1rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.9rem; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--rule); padding: 1.6rem 1.25rem 1.2rem; }
+    .sidebar h1 { font-size: 1.6rem; }
+    .sidebar nav { flex-direction: row; flex-wrap: wrap; gap: 0.5rem 1.2rem; margin-top: 1.2rem; }
+    main { padding: 2rem 1.25rem 4rem; }
+    h2 { font-size: 1.6rem; }
+  }
+  @media (max-width: 520px) {
     body { font-size: 16px; }
+    .news li { grid-template-columns: 1fr; }
+    .person { gap: 1rem; }
     .photo { flex-basis: 72px; width: 72px; height: 72px; }
   }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
 </head>
 <body>
 
-<header>
+<div class="layout">
+
+<aside class="sidebar">
   <h1>galactic.ai</h1>
-  <p>Department of Astronomy, University of Texas at Austin</p>
-  <nav>
+  <p class="dept">Department of Astronomy, University of Texas at Austin</p>
+  <nav aria-label="Sections">
     <a href="#about">About</a>
+    <a href="#news">News</a>
     <a href="#people">People</a>
     <a href="#projects">Projects</a>
     <a href="#publications">Publications</a>
+    <a href="#interested">If you’re interested</a>
     <a href="#contact">Contact</a>
     <a class="gh" href="https://github.com/galactic-ai"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
   </nav>
-</header>
+</aside>
 
 <main>
 
 <section id="about">
   <h2>About</h2>
   <p>We are a research group working on machine learning, cosmology and statistical inference. Replace this paragraph with a short description of what the group does and the questions it cares about.</p>
+  <p>Add a second paragraph for methods, software, or collaborations. Mention if you are recruiting students or postdocs, and link to the <a href="#interested">if you’re interested</a> section.</p>
+</section>
+
+<!--
+  NEWS: to add an item, copy one <li> below and put the newest one at the top.
+-->
+<section id="news">
+  <h2>News</h2>
+  <ul class="news">
+    <li>
+      <time datetime="2026-10">Oct 2026</time>
+      <div>
+        <p class="headline">New group website launched</p>
+        <p class="body">Short note about the new site and where to find people, projects and publications.</p>
+      </div>
+    </li>
+    <li>
+      <time datetime="2026-09">Sep 2026</time>
+      <div>
+        <p class="headline">Paper accepted to Journal Name</p>
+        <p class="body">One or two sentences on the result, with a link to the <a href="#">paper</a>.</p>
+      </div>
+    </li>
+    <li>
+      <time datetime="2026-08">Aug 2026</time>
+      <div>
+        <p class="headline">Talk or award announcement</p>
+        <p class="body">Who gave the talk or received the award, and where.</p>
+      </div>
+    </li>
+  </ul>
+  <p class="news-more">Older news: <a href="#">archive</a></p>
 </section>
 
 <section id="people">
@@ -99,47 +183,85 @@
 
   <h3>Faculty</h3>
   <div class="person">
-    <div class="photo">Photo</div>
-    <div>
+    <div class="photo" aria-hidden="true">Photo</div>
+    <div class="person-body">
       <div class="name"><a href="#">Name Surname</a></div>
-      <div class="role">Principal Investigator</div>
-      <p>One-line research summary.</p>
+      <p class="role">Principal Investigator</p>
+      <p class="bio">One-line research summary.</p>
     </div>
   </div>
 
   <h3>Postdocs</h3>
   <div class="person">
-    <div class="photo">Photo</div>
-    <div>
+    <div class="photo" aria-hidden="true">Photo</div>
+    <div class="person-body">
       <div class="name"><a href="#">Name Surname</a></div>
-      <div class="role">Postdoctoral Researcher</div>
-      <p>One-line research summary.</p>
-    </div>
-  </div>
-  <div class="person">
-    <div class="photo">Photo</div>
-    <div>
-      <div class="name"><a href="#">Name Surname</a></div>
-      <div class="role">Postdoctoral Researcher</div>
-      <p>One-line research summary.</p>
+      <p class="role">Postdoctoral Researcher</p>
+      <p class="bio">One-line research summary.</p>
     </div>
   </div>
 
-  <h3>PhD students</h3>
+  <h3>Graduate students</h3>
+
   <div class="person">
-    <div class="photo">Photo</div>
-    <div>
-      <div class="name"><a href="#">Name Surname</a></div>
-      <div class="role">PhD student</div>
-      <p>One-line research summary.</p>
+  <div class="photo" aria-hidden="true">AB</div>
+  <div class="person-body">
+    <div class="name">Full Name</div>
+    <p class="role">Graduate student</p>
+    <ul class="interests" aria-label="Research interests">
+      <li>Interest one</li>
+      <li>Interest two</li>
+    </ul>
+    <p class="project-line">Project: Project Title</p>
+    <p class="bio">Their project description and introduction.</p>
+    <p class="links">
+      <a href="mailto:name@utexas.edu">name@utexas.edu</a>
+      <a href="https://www.linkedin.com/in/...">LinkedIn</a>
+      <a href="https://github.com/...">GitHub</a>
+    </p>
+  </div>
+</div>
+
+  <!--
+    PERSON TEMPLATE: copy one <div class="person"> block per student.
+    To show a photo, replace the initials with:
+    <img src="data:image/jpeg;base64,..." alt="Name Surname">
+    (Google Drive links can't be loaded directly into this page, so embed the photo as shown.)
+  -->
+  <div class="person">
+    <div class="photo"><img src="images/nikhil.jpeg" alt="Nikhil Garuda"></div>
+    <div class="person-body">
+      <div class="name">Nikhil Garuda</div>
+      <p class="role">Graduate student</p>
+      <ul class="interests" aria-label="Research interests">
+        <li>Extragalactic astronomy</li>
+        <li>Machine learning</li>
+      </ul>
+      <p class="project-line">Project: UberSED</p>
+      <p class="bio">I am a second year graduate student working on data-driven techniques to maximally extract physical properties from galaxy spectra. My work lies on the intersection of observations and theory where I am using machine learning techniques to learn and challenge current theoretical models with respect to observations.</p>
+      <p class="links"><a href="mailto:garuda@utexas.edu">garuda@utexas.edu</a></p>
     </div>
   </div>
+
   <div class="person">
-    <div class="photo">Photo</div>
-    <div>
-      <div class="name"><a href="#">Name Surname</a></div>
-      <div class="role">PhD student</div>
-      <p>One-line research summary.</p>
+    <div class="photo"><img src="images/shreya.jpg" alt="Nikhil Garuda"></div>
+    <div class="person-body">
+      <div class="name">Shreya Dayal</div>
+      <p class="role">Graduate student</p>
+      <ul class="interests" aria-label="Research interests">
+        <li>Computational cosmology</li>
+        <li>Machine learning</li>
+        <li>Bayesian inference</li>
+        <li>High-redshift galaxies</li>
+        <li>Dark matter</li>
+      </ul>
+      <p class="project-line">Project: Pixel to Cosmology</p>
+      <p class="bio">My research focuses on developing machine learning and simulation-based inference methods to extract cosmological information from high-redshift galaxy populations. As part of the Pixel-to-Cosmology (Px2Cosmo) project, I am exploring neural density estimation and Bayesian inference techniques to improve cosmological parameter estimation, with the broader goal of constraining cosmological models and dark matter properties using observations of the early universe.</p>
+      <p class="links">
+        <a href="mailto:sd47844@eid.utexas.edu">sd47844@eid.utexas.edu</a>
+        <a href="https://www.linkedin.com/in/shreya-dayal">LinkedIn</a>
+        <a href="https://github.com/shreyad1997">GitHub</a>
+      </p>
     </div>
   </div>
 
@@ -151,21 +273,21 @@
   <h2>Projects</h2>
 
   <div class="project">
-    <h3>Project Title</h3>
-    <p class="meta">People: Name Surname, Name Surname</p>
-    <p>Short description of the project, its goal and its main result.</p>
+    <h4>UberSED</h4>
+    <p class="meta">People: Nikhil Garuda</p>
+    <p>Data-driven techniques to extract physical properties from galaxy spectra, using machine learning to test current theoretical models against observations.</p>
     <p><a href="#">Paper</a>, <a href="#">code</a></p>
   </div>
 
   <div class="project">
-    <h3>Project Title</h3>
-    <p class="meta">People: Name Surname, Name Surname</p>
-    <p>Short description of the project, its goal and its main result.</p>
+    <h4>Pixel to Cosmology (Px2Cosmo)</h4>
+    <p class="meta">People: Shreya Dayal</p>
+    <p>Simulation-based inference and neural density estimation to measure cosmological parameters from high-redshift galaxy populations.</p>
     <p><a href="#">Paper</a>, <a href="#">code</a></p>
   </div>
 
   <div class="project">
-    <h3>Project Title</h3>
+    <h4>Project Title</h4>
     <p class="meta">People: Name Surname</p>
     <p>Short description of the project, its goal and its main result.</p>
     <p><a href="#">Paper</a></p>
@@ -206,24 +328,36 @@
   <p>Full list on <a href="#">ADS</a> or <a href="#">Google Scholar</a>.</p>
 </section>
 
+<section id="interested">
+  <h2>If you’re interested</h2>
+  <div class="interest-box">
+    <p>We welcome questions from prospective graduate students, postdocs and collaborators. If our work interests you, please contact our principal investigator directly.</p>
+    <p><span class="pi">Name Surname</span>, Principal Investigator<br>
+    <a href="mailto:pi@example.edu">pi@example.edu</a></p>
+    <p>In your email, include a short note about your background and the project or question that draws you to the group, and attach your CV if you have one.</p>
+  </div>
+</section>
+
 <section id="contact">
   <h2>Contact</h2>
   <p>
     galactic.ai<br>
-    Department<br>
-    University Name<br>
-    Street Address, City, Postcode, Country
+    Department of Astronomy<br>
+    University of Texas at Austin<br>
+    Street Address, Austin, TX, Postcode
   </p>
   <p>Email: <a href="mailto:group@example.edu">group@example.edu</a></p>
-  <p class="gh"><a href="https://github.com/galactic-ai/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>github.com/group-name</a></p>
+  <p class="gh"><a href="https://github.com/galactic-ai/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>github.com/galactic-ai</a></p>
   <p>Note for prospective students and collaborators.</p>
 </section>
 
+<footer>
+  Last updated October 2026.
+</footer>
+
 </main>
 
-<footer>
-  Last updated Month Year.
-</footer>
+</div>
 
 </body>
 </html>
